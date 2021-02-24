@@ -15,6 +15,41 @@ bool write_obj(
   assert((F.size() == 0 || F.cols() == 3 || F.cols() == 4) && "F must have 3 or 4 columns");
   ////////////////////////////////////////////////////////////////////////////
   // Add your code here:
+  ofstream myfile;
+  myfile.open(filename);
+  if (myfile.fail()) {
+    cout << "Opening the file failed";
+    return false;
+  }
+
+  myfile << "# List of geometric vertices\n";
+  for (int i = 0; i < V.rows(); i++) {
+    myfile << "v ";
+    myfile << V(i, 0) << " " << V(i, 1) << " " << V(i, 2) << "\n";
+  }
+
+  myfile << "# List of texture coordinates\n";
+  for (int i = 0; i < UV.rows(); i++) {
+    myfile << "vt ";
+    myfile << UV(i, 0) << " " << UV(i, 1) << "\n";
+  }
+
+  myfile << "# List of vertex normals in (x,y,z) form\n";
+  for (int i = 0; i < NV.rows(); i++) {
+    myfile << "vn ";
+    myfile << NV(i, 0) << " " << NV(i, 1) << " " << NV(i, 2) << "\n";
+  }
+
+  myfile << "# Polygonal face element\n";
+  for (int i = 0; i < F.rows(); i++) {
+    myfile << "f ";
+    for (int j = 0; j < F.cols(); i++) {
+      myfile << V(i, j) << "/" << UV(i, j) << "/" << NV(i, j) << " ";
+    }
+    myfile << "\n";
+  }
+
+  myfile.close();
+  return true;
   ////////////////////////////////////////////////////////////////////////////
-  return false;
 }
