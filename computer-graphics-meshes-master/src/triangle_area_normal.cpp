@@ -8,6 +8,9 @@ Eigen::RowVector3d triangle_area_normal(
 {
   ////////////////////////////////////////////////////////////////////////////
   // Replace with your code:
-  ////////////////////////////////////////////////////////////////////////////
-  return Eigen::RowVector3d(0,0,0);
+  Eigen::RowVector3d U = b - a;
+  Eigen::RowVector3d V = c - a;
+
+  Eigen::RowVector3d N = U.cross(V);
+  return N;
 }

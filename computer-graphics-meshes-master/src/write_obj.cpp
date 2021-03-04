@@ -15,10 +15,10 @@ bool write_obj(
   assert((F.size() == 0 || F.cols() == 3 || F.cols() == 4) && "F must have 3 or 4 columns");
   ////////////////////////////////////////////////////////////////////////////
   // Add your code here:
-  ofstream myfile;
+  std::ofstream myfile;
   myfile.open(filename);
   if (myfile.fail()) {
-    cout << "Opening the file failed";
+    std::cout << "Opening the file failed";
     return false;
   }
 
@@ -43,13 +43,12 @@ bool write_obj(
   myfile << "# Polygonal face element\n";
   for (int i = 0; i < F.rows(); i++) {
     myfile << "f ";
-    for (int j = 0; j < F.cols(); i++) {
-      myfile << V(i, j) << "/" << UV(i, j) << "/" << NV(i, j) << " ";
+    for (int j = 0; j < F.cols(); j++) {
+      myfile << F(i, j) + 1 << "/" << UF(i, j) + 1 << "/" << NF(i, j) + 1 << " ";
     }
     myfile << "\n";
   }
 
-  myfile.close();
   return true;
   ////////////////////////////////////////////////////////////////////////////
 }
